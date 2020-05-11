@@ -22,6 +22,8 @@ public class Solution {
         List<TreeNode> listRight = new ArrayList<>();
         TreeNode traveler = root;
 
+        if(root == null) return list;
+
         do {
             if(listRight.size() > 0) {
                 listRight.remove(listRight.size() - 1);
@@ -77,6 +79,7 @@ public class Solution {
         TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG);
 
         System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
+        System.out.println(preorderTraversal(new TreeNode()));
 
     }
 }
