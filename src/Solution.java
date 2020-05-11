@@ -45,10 +45,6 @@ public class Solution {
 
             list.add(traveler.val);
 
-            for (TreeNode treeNode : listRight) {
-                //System.out.println("List treeRight : " + treeNode.val);
-            }
-
             if (listRight.size() > 0) {
                 //System.out.println("lastRight : " + listRight.get(listRight.size() - 1).val);
                 traveler = listRight.get(listRight.size() - 1);
@@ -58,12 +54,59 @@ public class Solution {
         return list;
     }
 
+    // Binary Tree Inorder Traversal
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        List<TreeNode> listPassed = new ArrayList<>();
+        TreeNode traveler = root;
+
+        if(root == null) return list;
+
+        do {
+            if(listPassed.size() > 0) {
+                listPassed.remove(listPassed.size() - 1);
+            }
+
+            //System.out.println("travel value: " + traveler.val);
+            while(traveler.left != null) {
+
+                listPassed.add(traveler);
+                /*if (traveler.right != null) {
+                    listPassed.add(traveler.right);
+                }*/
+                traveler = traveler.left;
+            }
+
+            /*if(traveler.right != null) {
+                //System.out.println("travel right not null");
+                listPassed.add(traveler.right);
+            }*/
+
+            list.add(traveler.val);
+
+            if (listPassed.size() > 0) {
+                System.out.println("lastPassed : " + listPassed.get(listPassed.size() - 1).val);
+                traveler = listPassed.get(listPassed.size() - 1);
+                list.add(traveler.val);
+                //listPassed.remove(listPassed.get(listPassed.size() - 1).val);
+                if(traveler.right != null) {
+                    traveler = traveler.right;
+                }
+            } else if(traveler.right != null) {
+                traveler = traveler.right;
+            }
+        } while (listPassed.size() > 0);
+
+        return list;
+    }
+
     public static void main(String[] args) {
         TreeNode treeNode3 = new TreeNode(3);
         TreeNode treeNode2 = new TreeNode(2, treeNode3, null);
         TreeNode treeNode1 = new TreeNode(1, null, treeNode2);
 
-        System.out.println(preorderTraversal(treeNode1));
+        //System.out.println(preorderTraversal(treeNode1));
+        System.out.println(inorderTraversal(treeNode1));    // Desired output: 1,3,2
 
         TreeNode treeNodeC = new TreeNode(3);
         TreeNode treeNodeE = new TreeNode(5);
@@ -78,8 +121,11 @@ public class Solution {
 
         TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG);
 
-        System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
-        System.out.println(preorderTraversal(new TreeNode()));
+        /*System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
+        System.out.println(preorderTraversal(new TreeNode()));*/
+
+        System.out.println(inorderTraversal(treeNodeF));
+        System.out.println(inorderTraversal(new TreeNode()));
 
     }
 }
