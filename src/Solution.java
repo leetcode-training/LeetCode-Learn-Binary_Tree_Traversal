@@ -74,13 +74,33 @@ public class Solution {
         }
     }
 
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        postHelper(root, list);
+        return list;
+    }
+
+    // Desired output: ACEDBHIGF aka 1,3,5,4,2,8,9,7,6
+    public static void postHelper(TreeNode root, List<Integer> list) {
+        if(root != null) {
+            if(root.left != null) {
+                helper(root.left, list);
+                if(root.right != null) {
+                    helper(root.right, list);
+                }
+            }
+            list.add(root.val);
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode treeNode3 = new TreeNode(3);
         TreeNode treeNode2 = new TreeNode(2, treeNode3, null);
         TreeNode treeNode1 = new TreeNode(1, null, treeNode2);
 
         //System.out.println(preorderTraversal(treeNode1));
-        System.out.println(inorderTraversal(treeNode1));    // Desired output: 1,3,2
+        //System.out.println(inorderTraversal(treeNode1));    // Desired output: 1,3,2
+        System.out.println(postorderTraversal(treeNode1));    // Desired output: 3,2,1
 
         TreeNode treeNodeC = new TreeNode(3);
         TreeNode treeNodeE = new TreeNode(5);
@@ -98,8 +118,10 @@ public class Solution {
         /*System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
         System.out.println(preorderTraversal(new TreeNode()));*/
 
-        System.out.println(inorderTraversal(treeNodeF));
-        System.out.println(inorderTraversal(new TreeNode()));
+        /*System.out.println(inorderTraversal(treeNodeF));
+        System.out.println(inorderTraversal(new TreeNode()));*/
+        System.out.println(postorderTraversal(treeNodeF));  // Desired output: ACEDBHIGF aka 1,3,5,4,2,8,9,7,6
+        System.out.println(postorderTraversal(new TreeNode()));
 
     }
 }
