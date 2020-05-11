@@ -57,47 +57,21 @@ public class Solution {
     // Binary Tree Inorder Traversal
     public static List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        List<TreeNode> listPassed = new ArrayList<>();
-        TreeNode traveler = root;
-
-        if(root == null) return list;
-
-        do {
-            if(listPassed.size() > 0) {
-                listPassed.remove(listPassed.size() - 1);
-            }
-
-            //System.out.println("travel value: " + traveler.val);
-            while(traveler.left != null) {
-
-                listPassed.add(traveler);
-                /*if (traveler.right != null) {
-                    listPassed.add(traveler.right);
-                }*/
-                traveler = traveler.left;
-            }
-
-            /*if(traveler.right != null) {
-                //System.out.println("travel right not null");
-                listPassed.add(traveler.right);
-            }*/
-
-            list.add(traveler.val);
-
-            if (listPassed.size() > 0) {
-                System.out.println("lastPassed : " + listPassed.get(listPassed.size() - 1).val);
-                traveler = listPassed.get(listPassed.size() - 1);
-                list.add(traveler.val);
-                //listPassed.remove(listPassed.get(listPassed.size() - 1).val);
-                if(traveler.right != null) {
-                    traveler = traveler.right;
-                }
-            } else if(traveler.right != null) {
-                traveler = traveler.right;
-            }
-        } while (listPassed.size() > 0);
+        helper(root, list);
 
         return list;
+    }
+
+    public static void helper(TreeNode root, List<Integer> list) {
+        if(root != null) {
+            if(root.left != null) {
+                helper(root.left, list);
+            }
+            list.add(root.val);
+            if(root.right != null) {
+                helper(root.right, list);
+            }
+        }
     }
 
     public static void main(String[] args) {
