@@ -84,10 +84,11 @@ public class Solution {
     public static void postHelper(TreeNode root, List<Integer> list) {
         if(root != null) {
             if(root.left != null) {
-                helper(root.left, list);
-                if(root.right != null) {
-                    helper(root.right, list);
-                }
+                postHelper(root.left, list);
+
+            }
+            if(root.right != null) {
+                postHelper(root.right, list);
             }
             list.add(root.val);
         }
