@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
 
@@ -94,8 +93,42 @@ public class Solution {
         }
     }
 
+    public static List<List<Integer>> levelOrder(TreeNode root) {
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> list = new ArrayList<>();
+
+        if(root == null) return null;
+
+        // add the first root to the list
+        list.add(Collections.singletonList(root.val));
+
+        do {
+            System.out.println("do root val : " + root.val);
+            if(!queue.isEmpty()) {
+                List<Integer> queueList = new LinkedList<>();
+                while (!queue.isEmpty()) {
+                    queueList.add(queue.poll().val);
+                }
+                System.out.println(queueList);
+                list.add(queueList);
+            }
+            if(root.left != null) {
+                queue.add(root.left);
+            }
+            if(root.right != null) {
+                queue.add(root.right);
+            }
+            if(!queue.isEmpty()) {
+                System.out.println("peek : " + queue.peek().val);
+                root = queue.peek();
+            }
+        } while (!queue.isEmpty());
+        return list;
+    }
+
     public static void main(String[] args) {
-        TreeNode treeNode3 = new TreeNode(3);
+        /*TreeNode treeNode3 = new TreeNode(3);
         TreeNode treeNode2 = new TreeNode(2, treeNode3, null);
         TreeNode treeNode1 = new TreeNode(1, null, treeNode2);
 
@@ -116,13 +149,23 @@ public class Solution {
 
         TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG);
 
-        /*System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
-        System.out.println(preorderTraversal(new TreeNode()));*/
+        *//*System.out.println(preorderTraversal(treeNodeF)); // Desired output: FBADCEGIH aka 6,2,1,4,3,5,7,9,8
+        System.out.println(preorderTraversal(new TreeNode()));*//*
 
-        /*System.out.println(inorderTraversal(treeNodeF));
-        System.out.println(inorderTraversal(new TreeNode()));*/
+        *//*System.out.println(inorderTraversal(treeNodeF));
+        System.out.println(inorderTraversal(new TreeNode()));*//*
         System.out.println(postorderTraversal(treeNodeF));  // Desired output: ACEDBHIGF aka 1,3,5,4,2,8,9,7,6
-        System.out.println(postorderTraversal(new TreeNode()));
+        System.out.println(postorderTraversal(new TreeNode()));*/
+
+        TreeNode treeNode7 = new TreeNode(7);
+        TreeNode treeNode15 = new TreeNode(15);
+
+        TreeNode treeNode20 = new TreeNode(20, treeNode15, treeNode7);
+        TreeNode treeNode9 = new TreeNode(9);
+
+        TreeNode treeNode3 = new TreeNode(3, treeNode9, treeNode20);
+
+        System.out.println(levelOrder(treeNode3));
 
     }
 }
